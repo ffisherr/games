@@ -19,7 +19,7 @@ public class BlockGenerator {
     public static Block generateBlock(int xLim) {
         final var typeKey = random.nextInt(BlockType.values().length);
 //        final var position = random.nextInt(POSSIBLE_POSITIONS);
-        final var type = BlockType.CUBE;//TYPES.get(typeKey);
+        final var type = TYPES.get(typeKey);
         final var x = random.nextInt(xLim-type.initWidth);
         return new Block(type, x, 0);
     }

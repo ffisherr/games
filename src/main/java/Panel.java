@@ -46,7 +46,6 @@ public class Panel {
         if (canBeMovedDown()) {
             block.moveDown();
         } else {
-            System.out.println("Block " + block + " cannot be moved down");
             blockToField(field);
             block = null;
             if (justCreated) gameOver = true;
@@ -65,7 +64,6 @@ public class Panel {
     }
 
     private boolean levelCleanUp() {
-        System.out.println("Start cleaning");
         boolean cleaned = false;
         for (int y = 0; y < field.length; y++) {
             boolean cleanLevel = true;
@@ -76,7 +74,6 @@ public class Panel {
                 }
             }
             if (cleanLevel) {
-                System.out.println("Cleaning level " + y);
                 cleaned = true;
                 Arrays.fill(field[y], EMPTY_ELEMENT);
                 break;
@@ -89,28 +86,31 @@ public class Panel {
     }
 
     private void suppressLevels() {
-        int levelToMove = -1;
+        boolean notEmptyExists = false;
+        int foundEmptyLevel = -1;
         for (int y = PANEL_HEIGHT-1; y >= 0; y--) {
-            boolean isEmpty = true;
+            boolean isEmptyLevel = true;
             for (int x = 0; x < PANEL_WEIGHT; x++) {
                 if (field[y][x] == BLOCK_ELEMENT) {
-                    isEmpty = false;
+                    isEmptyLevel = false;
                     break;
                 }
             }
-            if (isEmpty) {
-                levelToMove = y;
+
+            if (isEmptyLevel && foundEmptyLevel == -1) {
+                foundEmptyLevel = y;
+            }
+            if (!isEmptyLevel && foundEmptyLevel != -1) {
+                notEmptyExists = true;
                 break;
             }
         }
-        if (levelToMove >= 0 && levelToMove < PANEL_HEIGHT-1) {
-            System.out.println(levelToMove);
-            for (int y = levelToMove; y >= 0; y--) {
-                System.arraycopy(field[y], 0, field[y+1], 0, field[y].length);
-            }
-            Arrays.fill(field[0], EMPTY_ELEMENT);
-            suppressLevels();
+        if (!notEmptyExists) return;
+        for (int y = foundEmptyLevel-1; y >= 0; y--) {
+            System.arraycopy(field[y], 0, field[y+1], 0, field[y].length);
         }
+        Arrays.fill(field[0], EMPTY_ELEMENT);
+        suppressLevels();
     }
 
     private void performCommand(Command command) {
