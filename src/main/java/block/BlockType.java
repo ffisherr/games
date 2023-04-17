@@ -23,15 +23,17 @@ public enum BlockType {
     LEFT_G(new char[][]{
             {'*', '*'},
             {' ', '*'},
-            {' ', '*'},
             {' ', '*'}
     }, 2),
     RIGHT_G(new char[][]{
             {'*', '*'},
             {'*', ' '},
-            {'*', ' '},
             {'*', ' '}
-    }, 2);
+    }, 2),
+    SMALL_T(new char[][]{
+            {'*', '*', '*'},
+            {' ', '*', ' '}
+    }, 3);
 
     final char[][] figure;
     final int initWidth;

@@ -152,11 +152,9 @@ public class Panel {
                 if (blockStructure[y][x] == BLOCK_ELEMENT) {
                     final var xCoord = block.getX() + x;
                     if (yCoord + 1 >= PANEL_HEIGHT) {
-                        System.out.println("Stop coords " + (yCoord+1) + " " + xCoord);
                         return false;
                     }
                     if (field[yCoord+1][xCoord] == BLOCK_ELEMENT) {
-                        System.out.println("Stop coord: " + (yCoord+1) + " " + xCoord);
                         return false;
                     }
                 }
@@ -191,7 +189,11 @@ public class Panel {
         final var initX = block.getX();
         final var initY = block.getY();
         for (int y = 0; y < blockStructure.length; y++) {
-            System.arraycopy(blockStructure[y], 0, field[initY + y], initX, blockStructure[y].length);
+            for (int x = 0; x < blockStructure[y].length; x++) {
+                if (blockStructure[y][x] == BLOCK_ELEMENT) {
+                    field[initY+y][initX+x] = blockStructure[y][x];
+                }
+            }
         }
     }
 }
