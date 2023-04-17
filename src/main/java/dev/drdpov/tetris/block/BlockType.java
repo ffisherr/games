@@ -1,4 +1,4 @@
-package block;
+package dev.drdpov.tetris.block;
 
 public enum BlockType {
 

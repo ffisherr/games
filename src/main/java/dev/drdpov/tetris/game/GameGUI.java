@@ -1,3 +1,5 @@
+package dev.drdpov.tetris.game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;

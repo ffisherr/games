@@ -1,8 +1,9 @@
-import block.Block;
+package dev.drdpov.tetris.game;
+
+import dev.drdpov.tetris.block.Block;
+import dev.drdpov.tetris.block.BlockGenerator;
 
 import java.util.Arrays;
-
-import static block.BlockGenerator.generateBlock;
 
 public class Panel {
 
@@ -34,14 +35,14 @@ public class Panel {
     }
 
     /**
-     * Game progress changer
+     * dev.drdpov.tetris.block.Game progress changer
      * @return false if game is over, true otherwise
      */
     public boolean tick() {
         if (gameOver) return false;
         boolean justCreated = block == null;
         if (block == null) {
-            block = generateBlock(PANEL_WEIGHT);
+            block = BlockGenerator.generateBlock(PANEL_WEIGHT);
         }
         if (canBeMovedDown()) {
             block.moveDown();
@@ -65,17 +66,17 @@ public class Panel {
 
     private boolean levelCleanUp() {
         boolean cleaned = false;
-        for (int y = 0; y < field.length; y++) {
+        for (var y : field) {
             boolean cleanLevel = true;
-            for (int x = 0; x < field[y].length; x++) {
-                if (field[y][x] != BLOCK_ELEMENT) {
+            for (var c : y) {
+                if (c != BLOCK_ELEMENT) {
                     cleanLevel = false;
                     break;
                 }
             }
             if (cleanLevel) {
                 cleaned = true;
-                Arrays.fill(field[y], EMPTY_ELEMENT);
+                Arrays.fill(y, EMPTY_ELEMENT);
                 break;
             }
         }

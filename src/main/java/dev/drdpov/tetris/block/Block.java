@@ -1,4 +1,4 @@
-package block;
+package dev.drdpov.tetris.block;
 
 import java.util.Arrays;
 
